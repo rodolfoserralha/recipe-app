@@ -34,18 +34,23 @@ function Login() {
   return (
     <LoginProvider value={ userData }>
       <form onSubmit={ onSubmitLogin }>
-        <input
-          data-testid="email-input"
-          type="email"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
+        <label htmlFor="email-input">
+          <input
+            data-testid="email-input"
+            type="email"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
+        <label htmlFor="password-input">
+          <input
+            data-testid="password-input"
+            type="password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+
+        </label>
         <button
           type="submit"
           data-testid="login-submit-btn"
