@@ -1,15 +1,13 @@
-/* import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducers from '../reducers/index';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers';
 
 const store = createStore(
-  rootReducers,
-  composeWithDevTools(),
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(thunk),
+  ),
 );
 
-if (window.Cypress) {
-  window.store = store;
-}
-
 export default store;
- */
