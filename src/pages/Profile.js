@@ -1,9 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function Profile() {
   return (
-    <div>
-      a
-    </div>
+    <>
+      <Header title="Perfil" />
+      <div>
+        Profile
+      </div>
+    </>
   );
 }
