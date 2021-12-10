@@ -31,6 +31,7 @@ function Header(props) {
   return (
     <>
       <header>
+
         <div className="headerIcon">
           <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ profileIcon } alt="Profile Icon" />
@@ -47,6 +48,7 @@ function Header(props) {
             </button>
           ) }
         </div>
+
       </header>
 
       <div className="formulary">
