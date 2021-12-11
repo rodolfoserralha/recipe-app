@@ -33,32 +33,33 @@ function Login() {
 
   return (
     <LoginProvider value={ userData }>
-      <form onSubmit={ onSubmitLogin }>
-        <label htmlFor="email-input">
-          <input
-            data-testid="email-input"
-            type="email"
-            value={ email }
-            onChange={ ({ target }) => setEmail(target.value) }
-          />
-        </label>
-        <label htmlFor="password-input">
-          <input
-            data-testid="password-input"
-            type="password"
-            value={ password }
-            onChange={ ({ target }) => setPassword(target.value) }
-          />
-
-        </label>
-        <button
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ !validateLogin() }
-        >
-          Login
-        </button>
-      </form>
+      <div id="login-father">
+        <div id="login-container">
+          <form id="login-form" onSubmit={ onSubmitLogin }>
+            <input
+              data-testid="email-input"
+              type="email"
+              value={ email }
+              onChange={ ({ target }) => setEmail(target.value) }
+              placeholder="Email"
+            />
+            <input
+              data-testid="password-input"
+              type="password"
+              value={ password }
+              onChange={ ({ target }) => setPassword(target.value) }
+              placeholder="Senha"
+            />
+            <button
+              type="submit"
+              data-testid="login-submit-btn"
+              disabled={ !validateLogin() }
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
     </LoginProvider>
   );
 }
