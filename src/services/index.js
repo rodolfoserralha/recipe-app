@@ -21,19 +21,19 @@ export function requestApiThunk(searchRadioValue, searchText) {
     if (searchRadioValue === 'Ingrediente') {
       return fetch(requestIngredient(searchText))
         .then((res) => res.json())
-        .then((data) => dispatch(requestFoodAPI(data)));
+        .then(({ meals }) => dispatch(requestFoodAPI(meals)));
     }
 
     if (searchRadioValue === 'Nome') {
       return fetch(requestName(searchText))
         .then((res) => res.json())
-        .then((data) => dispatch(requestFoodAPI(data)));
+        .then(({ meals }) => dispatch(requestFoodAPI(meals)));
     }
 
     if (searchRadioValue === 'Primeira Letra') {
       return fetch(requestFirstLetter(searchText))
         .then((res) => res.json())
-        .then((data) => dispatch(requestFoodAPI(data)));
+        .then(({ meals }) => dispatch(requestFoodAPI(meals)));
     }
   };
 }

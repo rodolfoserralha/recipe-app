@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestApiThunk } from '../services';
 import { requestApiDrinkThunk } from '../services/drinksAPI';
 
 function FoodForms(props) {
-  const { dispatchFood, dispatchDrink, title } = props;
+  const { dispatchFood } = props;
 
   const [searchText, setSearchText] = useState('');
   const [searchRadioValue, setSearchRadioValue] = useState('');
@@ -15,14 +14,9 @@ function FoodForms(props) {
 
     if (searchText.length > 1 && searchRadioValue === 'Primeira Letra') {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
-      return;
-    }
-    if (title === 'Comidas') {
+    } else {
       dispatchFood(searchRadioValue, searchText);
-      return;
     }
-
-    return dispatchDrink(searchRadioValue, searchText);
   }
 
   return (
@@ -86,18 +80,14 @@ function FoodForms(props) {
 
 FoodForms.propTypes = {
   dispatchFood: PropTypes.func.isRequired,
-  dispatchDrink: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   foods: state.foodsReducer.foods,
-  drinks: state.foodsReducer.drinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchFood: (searchRadioValue, searchText) => (
-    dispatch(requestApiThunk(searchRadioValue, searchText))),
-  dispatchDrink: (searchRadioValue, searchText) => (
     dispatch(requestApiDrinkThunk(searchRadioValue, searchText))),
 });
 
