@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import FoodForms from './FoodForms';
-import DrinksForms from './DrinksForms';
+import Forms from './Forms';
 
 function Header(props) {
   const { title, hasSearch } = props;
@@ -35,7 +34,7 @@ function Header(props) {
         </div>
       </header>
 
-      { displayInput && <FoodForms title={ title } /> }
+      { displayInput && <Forms title={ title } /> }
     </>
   );
 }
