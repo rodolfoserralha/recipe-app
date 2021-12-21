@@ -1,4 +1,5 @@
 import { requestDrinkAPI } from '../redux/actions';
+import history from './history';
 
 const ENDPOINT_DRINKS_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const ENDPOINT_DRINKS_NAME = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -17,23 +18,35 @@ export function requestDrinkFirstLetter(inputValue) {
 }
 
 export function requestApiDrinkThunk(searchRadioValue, searchText) {
-  return (dispatch) => {
+  return async (dispatch) => {
     if (searchRadioValue === 'Ingrediente') {
-      return fetch(requestDrinkIngredient(searchText))
-        .then((res) => res.json())
-        .then(({ drinks }) => dispatch(requestDrinkAPI(drinks)));
+      const result = await fetch(requestDrinkIngredient(searchText))
+        .then((res) => res.json());
+      const { drinks } = result;
+      if (drinks.length === 1) {
+        return history.push(`/bebidas/${drinks[0].idDrink}`);
+      }
+      dispatch(requestDrinkAPI(drinks));
     }
 
     if (searchRadioValue === 'Nome') {
-      return fetch(requestDrinkName(searchText))
-        .then((res) => res.json())
-        .then(({ drinks }) => dispatch(requestDrinkAPI(drinks)));
+      const result = await fetch(requestDrinkName(searchText))
+        .then((res) => res.json());
+      const { drinks } = result;
+      if (drinks.length === 1) {
+        return history.push(`/bebidas/${drinks[0].idDrink}`);
+      }
+      dispatch(requestDrinkAPI(drinks));
     }
 
     if (searchRadioValue === 'Primeira Letra') {
-      return fetch(requestDrinkFirstLetter(searchText))
-        .then((res) => res.json())
-        .then(({ drinks }) => dispatch(requestDrinkAPI(drinks)));
+      const result = await fetch(requestDrinkFirstLetter(searchText))
+        .then((res) => res.json());
+      const { drinks } = result;
+      if (drinks.length === 1) {
+        return history.push(`/bebidas/${drinks[0].idDrink}`);
+      }
+      dispatch(requestDrinkAPI(drinks));
     }
   };
 }

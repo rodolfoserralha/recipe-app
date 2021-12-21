@@ -17,6 +17,7 @@ function Forms(props) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
+
     if (title === 'Comidas') {
       dispatchFood(searchRadioValue, searchText);
       return;
@@ -95,10 +96,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFood: (searchRadioValue, searchText, history) => (
-    dispatch(requestApiThunk(searchRadioValue, searchText, history))),
-  dispatchDrink: (searchRadioValue, searchText, history) => (
-    dispatch(requestApiDrinkThunk(searchRadioValue, searchText, history))),
+  dispatchFood: (searchRadioValue, searchText) => (
+    dispatch(requestApiThunk(searchRadioValue, searchText))),
+  dispatchDrink: (searchRadioValue, searchText) => (
+    dispatch(requestApiDrinkThunk(searchRadioValue, searchText))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

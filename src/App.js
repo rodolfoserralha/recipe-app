@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import history from './services/history';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Drinks from './pages/Drinks';
@@ -26,7 +27,7 @@ function App() {
   return (
     <Provider store={ store }>
       {/* <FoodsProvider value={ { a: '' } }> */}
-      <BrowserRouter>
+      <Router history={ history }>
         <Switch>
           <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route path="/receitas-feitas" component={ RecipesDone } />
@@ -45,7 +46,7 @@ function App() {
           <Route path="/comidas" component={ Foods } />
           <Route path="/" component={ Login } />
         </Switch>
-      </BrowserRouter>
+      </Router>
       {/* </FoodsProvider> */}
     </Provider>
   );
