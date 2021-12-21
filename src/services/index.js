@@ -4,6 +4,7 @@ import history from './history';
 const ENDPOINT_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const ENDPOINT_NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const ENDPOINT_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+const SORRY = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 export function requestIngredient(inputValue) {
   return `${ENDPOINT_INGREDIENT}${inputValue}`;
@@ -44,6 +45,7 @@ export function requestApiThunk(searchRadioValue, searchText) {
     if (searchRadioValue === 'Ingrediente') {
       const result = await fetch(requestIngredient(searchText)).then((res) => res.json());
       const { meals } = result;
+      if (meals === null) global.alert(SORRY);
       if (meals.length === 1) {
         return history.push(`/comidas/${meals[0].idMeal}`);
       }
@@ -53,6 +55,7 @@ export function requestApiThunk(searchRadioValue, searchText) {
     if (searchRadioValue === 'Nome') {
       const result = await fetch(requestName(searchText)).then((res) => res.json());
       const { meals } = result;
+      if (meals === null) global.alert(SORRY);
       if (meals.length === 1) {
         return history.push(`/comidas/${meals[0].idMeal}`);
       }
@@ -63,6 +66,7 @@ export function requestApiThunk(searchRadioValue, searchText) {
       const result = await fetch(requestFirstLetter(searchText))
         .then((res) => res.json());
       const { meals } = result;
+      if (meals === null) global.alert(SORRY);
       if (meals.length === 1) {
         return history.push(`/comidas/${meals[0].idMeal}`);
       }
