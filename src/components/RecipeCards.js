@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function RecipeCards(props) {
@@ -22,14 +21,9 @@ function RecipeCards(props) {
 
 RecipeCards.propTypes = {
   index: PropTypes.number.isRequired,
-  strMeal: PropTypes.number.isRequired,
+  strMeal: PropTypes.string.isRequired,
   strMealThumb: PropTypes.string.isRequired,
-  idMeal: PropTypes.number.isRequired,
+  idMeal: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  foods: state.foodsReducer.foods,
-  drinks: state.foodsReducer.drinks,
-});
-
-export default connect(mapStateToProps, null)(RecipeCards);
+export default RecipeCards;

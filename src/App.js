@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import history from './services/history';
+import history from './servicesContext/history';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Drinks from './pages/Drinks';
@@ -18,37 +17,32 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoods from './pages/ExploreFoods';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import store from './redux/store';
 // import FoodsProvider from './context/FoodsProvider';
 // import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Provider store={ store }>
-      {/* <FoodsProvider value={ { a: '' } }> */}
-      <Router history={ history }>
-        <Switch>
-          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-          <Route path="/receitas-feitas" component={ RecipesDone } />
-          <Route path="/explorar/comidas/area" component={ FoodsLocals } />
-          <Route path="/perfil" component={ Profile } />
-          <Route path="/explorar/bebidas/ingredientes" component={ DrinksIngredient } />
-          <Route path="/explorar/comidas/ingredientes" component={ FoodsIngredient } />
-          <Route path="/explorar/bebidas" component={ ExploreDrinks } />
-          <Route path="/explorar/comidas" component={ ExploreFoods } />
-          <Route path="/explorar" component={ Explore } />
-          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-          <Route path="/bebidas/:id" component={ DrinkRecipe } />
-          <Route path="/comidas/:id" component={ FoodRecipe } />
-          <Route path="/bebidas" component={ Drinks } />
-          <Route path="/comidas" component={ Foods } />
-          <Route path="/" component={ Login } />
-        </Switch>
-      </Router>
-      {/* </FoodsProvider> */}
-    </Provider>
+    <Router history={ history }>
+      <Switch>
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="/receitas-feitas" component={ RecipesDone } />
+        <Route path="/explorar/comidas/area" component={ FoodsLocals } />
+        <Route path="/perfil" component={ Profile } />
+        <Route path="/explorar/bebidas/ingredientes" component={ DrinksIngredient } />
+        <Route path="/explorar/comidas/ingredientes" component={ FoodsIngredient } />
+        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route path="/explorar/comidas" component={ ExploreFoods } />
+        <Route path="/explorar" component={ Explore } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/bebidas/:id" component={ DrinkRecipe } />
+        <Route path="/comidas/:id" component={ FoodRecipe } />
+        <Route path="/bebidas" component={ Drinks } />
+        <Route path="/comidas" component={ Foods } />
+        <Route path="/" component={ Login } />
+      </Switch>
+    </Router>
   );
 }
 

@@ -1,36 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import RecipeCards from '../components/RecipeCards';
+import DrinkCards from '../components/DrinkCards';
+import Footer from '../components/Footer';
+import DrinksAndFoodsContext from '../context/Foods&Drinks';
+import { drinkApiDidMount } from '../servicesContext/drinksAPI';
 
-function Drinks(props) {
-  const { drinks } = props;
+function Drinks() {
+  const { drinks, setDrinks } = useContext(DrinksAndFoodsContext);
+
+  useEffect(() => {
+    drinkApiDidMount(setDrinks);
+  }, [setDrinks]);
+
   const TWELVE = 12;
   return (
     <>
       <Header title="Bebidas" hasSearch />
       <div className="parent-cards">
-        { drinks.length > 1 && drinks.slice(0, TWELVE).map((drink, index) => (
-          <RecipeCards
+        { drinks && drinks.slice(0, TWELVE).map((drink, index) => (
+          <DrinkCards
             key={ drink.idDrink }
             index={ index }
-            idMeal={ drink.idDrink }
-            strMeal={ drink.strDrink }
-            strMealThumb={ drink.strDrinkThumb }
+            idDrink={ drink.idDrink }
+            strDrink={ drink.strDrink }
+            strDrinkThumb={ drink.strDrinkThumb }
           />
         )) }
       </div>
+      <Footer />
     </>
   );
 }
 
-Drinks.propTypes = {
-  drinks: PropTypes.arrayOf.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  drinks: state.foodsReducer.drinks,
-});
-
-export default connect(mapStateToProps, null)(Drinks);
+export default Drinks;

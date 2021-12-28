@@ -1,16 +1,24 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import RecipeCards from '../components/RecipeCards';
+import Footer from '../components/Footer';
+import DrinksAndFoodsContext from '../context/Foods&Drinks';
+import { apiMealsDidMount } from '../servicesContext/mealsApi';
 
-function Foods(props) {
-  const { foods } = props;
+function Foods() {
+  const { meals, setMeals } = useContext(DrinksAndFoodsContext);
+  const TWELVE = 12;
+
+  useEffect(() => {
+    apiMealsDidMount(setMeals);
+  }, [setMeals]);
+
   return (
     <>
       <Header title="Comidas" hasSearch />
       <div className="parent-cards">
-        { foods.length > 1 && foods.map((food, index) => (
+        { meals && meals.slice(0, TWELVE).map((food, index) => (
           <RecipeCards
             key={ food.idMeal }
             index={ index }
@@ -20,16 +28,9 @@ function Foods(props) {
           />
         )) }
       </div>
+      <Footer />
     </>
   );
 }
 
-Foods.propTypes = {
-  foods: PropTypes.arrayOf.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  foods: state.foodsReducer.foods,
-});
-
-export default connect(mapStateToProps, null)(Foods);
+export default Foods;
