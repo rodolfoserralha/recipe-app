@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Provider from './context/Foods&DrinksProvider';
+import FoodsDrinksProvider from './context/Foods&DrinksProvider';
 
 ReactDOM.render(
-  <Provider>
+  <FoodsDrinksProvider>
     <App />
-  </Provider>,
+  </FoodsDrinksProvider>,
   document.getElementById('root'),
 );
 

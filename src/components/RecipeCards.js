@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function RecipeCards(props) {
   const { index, strMeal, strMealThumb, idMeal } = props;
   return (
-    <div data-testid={ `${index}-recipe-card` } className="testando">
+    <div data-testid={ `${index}-recipe-card` } className="recipe-card">
       <Link to={ `/comidas/${idMeal}` }>
         <img
           className="recipe-imgs"
