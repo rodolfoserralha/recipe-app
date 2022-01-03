@@ -17,9 +17,6 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoods from './pages/ExploreFoods';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-// import FoodsProvider from './context/FoodsProvider';
-// import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

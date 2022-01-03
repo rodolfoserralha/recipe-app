@@ -55,7 +55,8 @@ export async function requestMeals(searchRadioValue, searchText, setMeals) {
 }
 
 export async function apiMealsDidMount(setMeals) {
-  const result = await fetch(ENDPOINT_INGREDIENT).then((res) => res.json());
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((res) => res.json());
   const { meals } = result;
   setMeals(meals);
 }
