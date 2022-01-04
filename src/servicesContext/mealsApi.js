@@ -60,3 +60,16 @@ export async function apiMealsDidMount(setMeals) {
   const { meals } = result;
   setMeals(meals);
 }
+
+const ENDPOINT_RECIPE = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+function requestRecipe(id) {
+  return `${ENDPOINT_RECIPE}${id}`;
+}
+
+export async function apiMealsRecipe(id, setMealsRecipe) {
+  const result = await fetch(requestRecipe(id))
+    .then((res) => res.json());
+  const { meals } = result;
+  setMealsRecipe(meals[0]);
+}

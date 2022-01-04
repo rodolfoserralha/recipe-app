@@ -52,3 +52,16 @@ export async function drinkApiDidMount(setDrinks) {
   const { drinks } = results;
   setDrinks(drinks);
 }
+
+const ENDPOINT_RECIPE = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+
+function requestRecipe(id) {
+  return `${ENDPOINT_RECIPE}${id}`;
+}
+
+export async function apiDrinksRecipe(id, setDrinksRecipe) {
+  const result = await fetch(requestRecipe(id))
+    .then((res) => res.json());
+  const { drinks } = result;
+  setDrinksRecipe(drinks[0]);
+}
