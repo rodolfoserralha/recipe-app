@@ -5,6 +5,7 @@ import DrinkCards from '../components/DrinkCards';
 import Footer from '../components/Footer';
 import DrinksAndFoodsContext from '../context/Foods&Drinks';
 import { drinkApiDidMount } from '../servicesContext/drinksAPI';
+import DrinkCategories from '../components/DrinksCategories';
 
 function Drinks() {
   const { drinks, setDrinks } = useContext(DrinksAndFoodsContext);
@@ -17,6 +18,7 @@ function Drinks() {
   return (
     <>
       <Header title="Bebidas" hasSearch />
+      <DrinkCategories />
       <div className="parent-cards">
         { drinks && drinks.slice(0, TWELVE).map((drink, index) => (
           <DrinkCards

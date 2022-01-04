@@ -60,3 +60,9 @@ export async function apiMealsDidMount(setMeals) {
   const { meals } = result;
   setMeals(meals);
 }
+
+export async function apiMealsCategories(setCategories) {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((res) => res.json());
+  setCategories(result.meals);
+}
