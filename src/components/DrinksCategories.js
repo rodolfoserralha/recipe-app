@@ -4,8 +4,8 @@ import DrinksAndFoodsContext from '../context/Foods&Drinks';
 
 export default function DrinkCategories() {
   const [drinkCategories, setDrinkCategories] = useState('');
-  const [toggleDrinks, setToggleDrinks] = useState(false);
   const [buttonsDrinksArray, setButtonDrinksArray] = useState([]);
+  const [lastDrinkCategory, setLastDrinkCategory] = useState('');
   const { setDrinks } = useContext(DrinksAndFoodsContext);
   const FIVE = 5;
 
@@ -14,32 +14,33 @@ export default function DrinkCategories() {
   }, [setDrinkCategories]);
 
   async function handleOnClick(e) {
-    if (!toggleDrinks && e.target.value === 'All') {
-      e.target.style.backgroundColor = '#fff';
+    let category = e.target.value;
+
+    if (category === lastDrinkCategory) {
+      category = 'All';
+    }
+
+    setLastDrinkCategory(category);
+
+    if (category === 'All') {
       setButtonDrinksArray(['All']);
 
       drinkApiDidMount(setDrinks);
-      setToggleDrinks(!toggleDrinks);
       return;
     }
 
-    if (!toggleDrinks) {
-      const category = e.target.value;
-      e.target.style.backgroundColor = '#fff';
-      setButtonDrinksArray([category]);
+    setButtonDrinksArray([category]);
 
-      const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
-        .then((res) => res.json());
+    const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
+      .then((res) => res.json());
 
-      setDrinks(result.drinks);
-      setToggleDrinks(!toggleDrinks);
-      return;
-    }
+    setDrinks(result.drinks);
+  }
 
-    setButtonDrinksArray([]);
-    drinkApiDidMount(setDrinks);
-    setToggleDrinks(!toggleDrinks);
-    e.target.style.backgroundColor = '';
+  function activeBtn(strCategory) {
+    const active = buttonsDrinksArray
+      .find((btn) => btn === strCategory);
+    return active ? 'category-btn active-btn' : 'category-btn';
   }
 
   return (
@@ -48,7 +49,6 @@ export default function DrinkCategories() {
         data-testid="All-category-filter"
         value="All"
         type="button"
-        disabled={ buttonsDrinksArray.find((btn) => btn !== 'All') }
         onClick={ handleOnClick }
       >
         All
@@ -58,12 +58,11 @@ export default function DrinkCategories() {
         return (
           <button
             data-testid={ `${strCategory}-category-filter` }
-            className="category-btn"
+            className={ activeBtn(strCategory) }
             type="button"
             value={ strCategory }
             key={ strCategory }
             onClick={ handleOnClick }
-            disabled={ buttonsDrinksArray.find((btn) => btn !== strCategory) }
           >
             {strCategory}
           </button>

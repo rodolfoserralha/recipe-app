@@ -161,6 +161,6 @@ footer {
   width: 100%;
 }
 
-#teste {
-  
+.active-btn {
+  border: 2px solid blue;
 }

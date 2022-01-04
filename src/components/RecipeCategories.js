@@ -4,8 +4,8 @@ import DrinksAndFoodsContext from '../context/Foods&Drinks';
 
 export default function RecipeCategories() {
   const [categories, setCategories] = useState('');
-  const [toggleMeals, setToggleMeals] = useState(false);
   const [buttonsArray, setButtonArray] = useState([]);
+  const [lastCategory, setLastCategory] = useState('');
   const { meals, setMeals } = useContext(DrinksAndFoodsContext);
 
   const FIVE = 5;
@@ -15,32 +15,33 @@ export default function RecipeCategories() {
   }, [setCategories]);
 
   async function handleOnClick(e) {
-    if (!toggleMeals && e.target.value === 'All') {
-      e.target.style.backgroundColor = '#fff';
+    let category = e.target.value;
+
+    if (category === lastCategory) {
+      category = 'All';
+    }
+
+    setLastCategory(category);
+
+    if (category === 'All') {
       setButtonArray(['All']);
 
       apiMealsDidMount(setMeals);
-      setToggleMeals(!toggleMeals);
       return;
     }
 
-    if (!toggleMeals) {
-      const category = e.target.value;
-      e.target.style.backgroundColor = '#fff';
-      setButtonArray([category]);
+    setButtonArray([category]);
 
-      const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-        .then((res) => res.json());
+    const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+      .then((res) => res.json());
 
-      setMeals(result.meals);
-      setToggleMeals(!toggleMeals);
-      return;
-    }
+    setMeals(result.meals);
+  }
 
-    setButtonArray([]);
-    apiMealsDidMount(setMeals);
-    setToggleMeals(!toggleMeals);
-    e.target.style.backgroundColor = '';
+  function activeBtn(strCategory) {
+    const active = buttonsArray
+      .find((btn) => btn === strCategory);
+    return active ? 'category-btn active-btn' : 'category-btn';
   }
 
   return (
@@ -49,7 +50,6 @@ export default function RecipeCategories() {
         data-testid="All-category-filter"
         value="All"
         type="button"
-        disabled={ buttonsArray.find((btn) => btn !== 'All') }
         onClick={ handleOnClick }
       >
         All
@@ -59,12 +59,11 @@ export default function RecipeCategories() {
         return (
           <button
             data-testid={ `${strCategory}-category-filter` }
-            className="category-btn"
+            className={ activeBtn(strCategory) }
             value={ strCategory }
             type="button"
             key={ strCategory }
             onClick={ handleOnClick }
-            disabled={ buttonsArray.find((btn) => btn !== strCategory) }
           >
             {strCategory}
           </button>
