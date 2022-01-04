@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-// import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import DrinkCards from '../components/DrinkCards';
 import Footer from '../components/Footer';

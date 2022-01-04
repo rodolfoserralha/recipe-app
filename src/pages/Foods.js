@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-// import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import RecipeCards from '../components/RecipeCards';
 import Footer from '../components/Footer';
@@ -9,6 +8,7 @@ import RecipeCategories from '../components/RecipeCategories';
 
 function Foods() {
   const { meals, setMeals } = useContext(DrinksAndFoodsContext);
+
   const TWELVE = 12;
 
   useEffect(() => {
