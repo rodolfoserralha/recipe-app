@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './servicesContext/history';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Drinks from './pages/Drinks';
@@ -16,15 +17,10 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoods from './pages/ExploreFoods';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-// import { Provider } from 'react-redux';
-// import store from './redux/store';
-// import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    // <Provider store={ store }>
-    <BrowserRouter>
+    <Router history={ history }>
       <Switch>
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route path="/receitas-feitas" component={ RecipesDone } />
@@ -43,8 +39,7 @@ function App() {
         <Route path="/comidas" component={ Foods } />
         <Route path="/" component={ Login } />
       </Switch>
-    </BrowserRouter>
-    // </Provider>
+    </Router>
   );
 }
 
