@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { apiMealsCategories } from '../servicesContext/mealsApi';
+import { apiMealsCategories, apiMealsDidMount } from '../servicesContext/mealsApi';
 import DrinksAndFoodsContext from '../context/Foods&Drinks';
 
 export default function RecipeCategories() {
   const [categories, setCategories] = useState('');
+  const [toggleMeals, setToggleMeals] = useState(false);
   const { meals, setMeals } = useContext(DrinksAndFoodsContext);
   const FIVE = 5;
 
@@ -12,12 +13,21 @@ export default function RecipeCategories() {
   }, [setCategories]);
 
   async function handleOnClick(e) {
-    const category = e.target.value;
+    if (!toggleMeals) {
+      const category = e.target.value;
+      e.target.style.backgroundColor = '#fff';
 
-    const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-      .then((res) => res.json());
+      const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+        .then((res) => res.json());
 
-    setMeals(result.meals);
+      setMeals(result.meals);
+      setToggleMeals(!toggleMeals);
+      return;
+    }
+
+    apiMealsDidMount(setMeals);
+    setToggleMeals(!toggleMeals);
+    e.target.style.backgroundColor = '';
   }
 
   return (
