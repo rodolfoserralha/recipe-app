@@ -61,6 +61,12 @@ export async function apiMealsDidMount(setMeals) {
   setMeals(meals);
 }
 
+export async function apiMealsCategories(setCategories) {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((res) => res.json());
+  setCategories(result.meals);
+}
+
 const ENDPOINT_RECIPE = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 function requestRecipe(id) {

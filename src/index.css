@@ -160,3 +160,7 @@ footer {
   position: fixed;
   width: 100%;
 }
+
+.active-btn {
+  border: 2px solid blue;
+}
