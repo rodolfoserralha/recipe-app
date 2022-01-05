@@ -52,3 +52,9 @@ export async function drinkApiDidMount(setDrinks) {
   const { drinks } = results;
   setDrinks(drinks);
 }
+
+export async function apiDrinkCategories(setDrinkCategories) {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((res) => res.json());
+  setDrinkCategories(result.drinks);
+}
