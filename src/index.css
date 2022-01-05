@@ -165,7 +165,7 @@ footer {
   border: 2px solid blue;
 }
 
-#explore-btns {
+.explore-btns {
   align-items: center;
   display: flex;
   flex-direction: column;

@@ -9,7 +9,7 @@ export default function Explore() {
   return (
     <>
       <Header title="Explorar" />
-      <div id="explore-btns">
+      <div className="explore-btns">
         <button
           data-testid="explore-food"
           className="explore-btn"
