@@ -164,3 +164,17 @@ footer {
 .active-btn {
   border: 2px solid blue;
 }
+
+.explore-btns {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-btn {
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: large;
+  margin: 10px;
+  height: 70px;
+  width: 90%;
+}
