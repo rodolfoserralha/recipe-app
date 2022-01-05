@@ -71,3 +71,18 @@ export async function apiDrinksRecipe(id, setDrinksRecipe) {
   const { drinks } = result;
   setDrinksRecipe(drinks[0]);
 }
+
+export async function ingredientDrinks(setIngredientsDrinksList) {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((res) => res.json());
+
+  setIngredientsDrinksList(result.drinks);
+}
+
+export async function filterByIngredientDrinks(setIngredientsList, ingredient) {
+  const result = await
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+    .then((res) => res.json());
+
+  setIngredientsList(result.drinks);
+}

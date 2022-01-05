@@ -79,3 +79,18 @@ export async function apiMealsRecipe(id, setMealsRecipe) {
   const { meals } = result;
   setMealsRecipe(meals[0]);
 }
+
+export async function ingredientsMeals(setIngredientsList) {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((res) => res.json());
+
+  setIngredientsList(result.meals);
+}
+
+export async function filterByIngredient(setIngredientsList, ingredient) {
+  const result = await
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+    .then((res) => res.json());
+
+  setIngredientsList(result.meals);
+}
