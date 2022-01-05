@@ -26,8 +26,6 @@ export default function FoodRecipe(props) {
       <button type="button" data-testid="favorite-btn">Favoritar</button>
       <span data-testid="recipe-category">{ mealRecipe.strCategory }</span>
       <span data-testid="0-ingredient-name-and-measure">
-        Ingredientes:
-        { ' ' }
         <Ingredients mealRecipe={ Object.entries(mealRecipe) } />
       </span>
       <span data-testid="instructions">{ mealRecipe.strInstructions }</span>

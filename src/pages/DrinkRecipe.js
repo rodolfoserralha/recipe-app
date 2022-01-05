@@ -44,8 +44,6 @@ export default function DrinkRecipe(props) {
       </span>
       <br />
       <span data-testid="0-ingredient-name-and-measure">
-        Ingredientes:
-        { ' ' }
         <Ingredients drinkRecipe={ Object.entries(drinkRecipe) } />
       </span>
       <DrinkCards data-testid="0-recomendation-card" />
