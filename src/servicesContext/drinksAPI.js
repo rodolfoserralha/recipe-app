@@ -70,7 +70,6 @@ export async function apiDrinksRecipe(id, setDrinksRecipe, setLoading) {
     .then((res) => res.json());
   const { drinks } = result;
   setDrinksRecipe(drinks[0]);
-  setLoading(false);
 }
 
 export async function ingredientDrinks(setIngredientsDrinksList) {

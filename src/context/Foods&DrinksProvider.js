@@ -5,11 +5,18 @@ import DrinksAndFoodsContext from './Foods&Drinks';
 function Provider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [recipeComplete, setRecipeComplete] = useState(false);
+  const [startRecipe, setStartRecipe] = useState(true);
+
   const contextValue = {
     meals,
     setMeals,
     drinks,
     setDrinks,
+    recipeComplete,
+    setRecipeComplete,
+    startRecipe,
+    setStartRecipe,
   };
 
   return (
