@@ -61,7 +61,7 @@ export default function FoodRecipe(props) {
   const removedRecipe = JSON.stringify(removeFromArray);
 
   function isFavorite() {
-    return !!localStorage.getItem('favoriteRecipes');
+    return favoritesArray.some((favorite) => favorite.id === id);
   }
   const [favoriteButton, setFavoriteButton] = useState(isFavorite());
 
