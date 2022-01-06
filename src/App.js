@@ -18,6 +18,7 @@ import ExploreFoods from './pages/ExploreFoods';
 import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Ingredients from './pages/Ingredients';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Switch>
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route path="/receitas-feitas" component={ RecipesDone } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route path="/explorar/comidas/area" component={ FoodsLocals } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/explorar/comidas/ingredientes/:id" component={ Ingredients } />
