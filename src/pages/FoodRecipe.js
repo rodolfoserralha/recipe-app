@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import DrinkCards from '../components/DrinkCards';
@@ -8,13 +8,18 @@ import { drinkApiDidMount } from '../servicesContext/drinksAPI';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import DrinksAndFoodsContext from '../context/Foods&Drinks';
 
 export default function FoodRecipe(props) {
   const { match: { params: { id }, url } } = props;
   const [mealRecipe, setMealsRecipe] = useState({});
   const [drink, setDrink] = useState([]);
-  const [startButton, setStartButton] = useState(true);
   const [shareButton, setShareButton] = useState(false);
+
+  const {
+    recipeComplete,
+    startRecipe,
+    setStartRecipe } = useContext(DrinksAndFoodsContext);
 
   const SIX = 6;
   const link = mealRecipe.strYoutube;
@@ -30,7 +35,7 @@ export default function FoodRecipe(props) {
   }, [setDrink]);
 
   function handleClick() {
-    setStartButton(!startButton);
+    setStartRecipe(!startRecipe);
   }
 
   function handleShare() {
@@ -39,24 +44,31 @@ export default function FoodRecipe(props) {
     navigator.clipboard.writeText(linkRecipe);
   }
 
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favoritesArray = favorites || [];
+  const recipe = [{
+    id: idMeal,
+    type: 'comida',
+    area: strArea,
+    category: strCategory,
+    alcoholicOrNot: '',
+    name: strMeal,
+    image: strMealThumb,
+  }];
+  const saveArray = [...favoritesArray, ...recipe];
+  const saveRecipes = JSON.stringify(saveArray);
+  const removeFromArray = favoritesArray.filter((favorite) => favorite.id !== id);
+  const removedRecipe = JSON.stringify(removeFromArray);
+
   function isFavorite() {
     return !!localStorage.getItem('favoriteRecipes');
   }
   const [favoriteButton, setFavoriteButton] = useState(isFavorite());
 
   function handleFavorite() {
-    const recipe = JSON.stringify([{
-      id: idMeal,
-      type: 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    }]);
     if (!favoriteButton) {
-      localStorage.setItem('favoriteRecipes', recipe);
-    } else localStorage.removeItem('favoriteRecipes', recipe);
+      localStorage.setItem('favoriteRecipes', saveRecipes);
+    } else localStorage.setItem('favoriteRecipes', removedRecipe);
     setFavoriteButton(!favoriteButton);
   }
 
@@ -139,17 +151,19 @@ export default function FoodRecipe(props) {
           />
         )) }
       </div>
-      { !startButton ? '' : (
-        <Link to={ `/comidas/${id}/in-progress` }>
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            id="start-btn"
-            onClick={ handleClick }
-          >
-            Start Recipe
-          </button>
-        </Link>)}
+      <Link to={ `/comidas/${id}/in-progress` }>
+        { recipeComplete ? ''
+          : (
+            <button
+              data-testid="start-recipe-btn"
+              type="button"
+              id="start-btn"
+              onClick={ handleClick }
+            >
+              {recipeComplete && startRecipe === false ? 'Continue Recipe'
+                : 'Start Recipe' }
+            </button>)}
+      </Link>
     </div>
   );
 }
