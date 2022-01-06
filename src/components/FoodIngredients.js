@@ -19,23 +19,19 @@ export default function Ingredients(props) {
   return (
     <>
       <span>
-        Ingredientes:
+        Ingredients:
         { ' ' }
       </span>
       <ol>
         {
           ingredientArray.map((ingredients, index) => (
-            <li key={ index }>{ingredients[1]}</li>))
-        }
-      </ol>
-      <span>
-        Medidas:
-        { ' ' }
-      </span>
-      <ol>
-        {
-          measureArray.map((ingredients, index) => (
-            <li key={ index }>{ingredients[1]}</li>))
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {`${measureArray[index][1]} ${ingredients[1]}`}
+
+            </li>))
         }
       </ol>
     </>

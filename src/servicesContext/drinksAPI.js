@@ -65,9 +65,10 @@ function requestRecipe(id) {
   return `${ENDPOINT_RECIPE}${id}`;
 }
 
-export async function apiDrinksRecipe(id, setDrinksRecipe) {
+export async function apiDrinksRecipe(id, setDrinksRecipe, setLoading) {
   const result = await fetch(requestRecipe(id))
     .then((res) => res.json());
   const { drinks } = result;
   setDrinksRecipe(drinks[0]);
+  setLoading(false);
 }

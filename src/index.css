@@ -104,6 +104,12 @@ fieldset {
   margin: 5px;
 }
 
+#favorite-btn {
+  background-color: #FAFBFC;
+  width: 50px;
+  height: 40px;
+}
+
 #search-button {
   appearance: none;
   background-color: #FAFBFC;
@@ -129,6 +135,17 @@ fieldset {
   vertical-align: middle;
   white-space: nowrap;
   word-wrap: break-word;
+}
+
+#share-btn {
+  background-color: #FAFBFC;
+  width: 50px;
+  height: 40px;
+}
+
+#start-btn {
+  position: fixed;
+  bottom: 0px;
 }
 
 .recipe-card {
