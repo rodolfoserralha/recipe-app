@@ -53,21 +53,18 @@ export default function DrinkCategories() {
       >
         All
       </button>
-      { drinkCategories && drinkCategories.slice(0, FIVE).map(({ strCategory }) => {
-        console.log(drinkCategories);
-        return (
-          <button
-            data-testid={ `${strCategory}-category-filter` }
-            className={ activeBtn(strCategory) }
-            type="button"
-            value={ strCategory }
-            key={ strCategory }
-            onClick={ handleOnClick }
-          >
-            {strCategory}
-          </button>
-        );
-      }) }
+      { drinkCategories && drinkCategories.slice(0, FIVE).map(({ strCategory }) => (
+        <button
+          data-testid={ `${strCategory}-category-filter` }
+          className={ activeBtn(strCategory) }
+          type="button"
+          value={ strCategory }
+          key={ strCategory }
+          onClick={ handleOnClick }
+        >
+          {strCategory}
+        </button>
+      )) }
     </div>
   );
 }

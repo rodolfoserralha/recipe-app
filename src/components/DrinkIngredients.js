@@ -14,30 +14,25 @@ export default function Ingredients(props) {
   );
   const measureArray = allMeasureArray.filter(
     (measure) => measure[1] !== null,
-  );
+  ).map((measure) => measure[1]);
 
   return (
     <>
       <span>
-        Ingredientes:
+        Ingredients:
         { ' ' }
       </span>
-      <ol>
+      <ul>
         {
           ingredientArray.map((ingredients, index) => (
-            <li key={ index }>{ingredients[1]}</li>))
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {`${measureArray[index] || ''} ${ingredients[1]}`}
+            </li>))
         }
-      </ol>
-      <span>
-        Medidas:
-        { ' ' }
-      </span>
-      <ol>
-        {
-          measureArray.map((ingredients, index) => (
-            <li key={ index }>{ingredients[1]}</li>))
-        }
-      </ol>
+      </ul>
     </>
   );
 }

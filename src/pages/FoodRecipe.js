@@ -1,41 +1,155 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import RecipeCards from '../components/RecipeCards';
+import { Link } from 'react-router-dom';
+import DrinkCards from '../components/DrinkCards';
 import Ingredients from '../components/FoodIngredients';
 import { apiMealsRecipe } from '../servicesContext/mealsApi';
+import { drinkApiDidMount } from '../servicesContext/drinksAPI';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FoodRecipe(props) {
-  const { match: { params: { id } } } = props;
+  const { match: { params: { id }, url } } = props;
   const [mealRecipe, setMealsRecipe] = useState({});
+  const [drink, setDrink] = useState([]);
+  const [startButton, setStartButton] = useState(true);
+  const [shareButton, setShareButton] = useState(false);
+
+  const SIX = 6;
+  const link = mealRecipe.strYoutube;
+  const { idMeal, strArea, strCategory, strMeal, strMealThumb,
+    strInstructions } = mealRecipe;
 
   useEffect(() => {
     apiMealsRecipe(id, setMealsRecipe);
   }, [id, setMealsRecipe]);
 
+  useEffect(() => {
+    drinkApiDidMount(setDrink);
+  }, [setDrink]);
+
+  function handleClick() {
+    setStartButton(!startButton);
+  }
+
+  function handleShare() {
+    setShareButton(true);
+    const linkRecipe = `http://localhost:3000${url}`;
+    navigator.clipboard.writeText(linkRecipe);
+  }
+
+  function isFavorite() {
+    return !!localStorage.getItem('favoriteRecipes');
+  }
+  const [favoriteButton, setFavoriteButton] = useState(isFavorite());
+
+  function handleFavorite() {
+    const recipe = JSON.stringify([{
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    }]);
+    if (!favoriteButton) {
+      localStorage.setItem('favoriteRecipes', recipe);
+    } else localStorage.removeItem('favoriteRecipes', recipe);
+    setFavoriteButton(!favoriteButton);
+  }
+
   return (
     <div>
+      <h1 data-testid="recipe-title">
+        {strMeal}
+      </h1>
       <img
         data-testid="recipe-photo"
-        src={ mealRecipe.strMealThumb }
-        alt={ mealRecipe.strMeal }
+        src={ strMealThumb }
+        alt={ strMeal }
         width="320"
         height="240"
       />
-      <h1 data-testid="recipe-title">{mealRecipe.strMeal}</h1>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <span data-testid="recipe-category">{ mealRecipe.strCategory }</span>
-      <span data-testid="0-ingredient-name-and-measure">
-        <Ingredients mealRecipe={ Object.entries(mealRecipe) } />
+      <br />
+      <button
+        type="button"
+        id="share-btn"
+        data-testid="share-btn"
+        onClick={ handleShare }
+      >
+        <img src={ shareIcon } alt="Share Icon" />
+      </button>
+      {shareButton && <span>Link copiado!</span>}
+      <button
+        type="button"
+        id="favorite-btn"
+        onClick={ handleFavorite }
+        src={ favoriteButton ? { blackHeartIcon } : { whiteHeartIcon } }
+      >
+        { favoriteButton
+          ? (
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              alt="Black Heart Icon"
+              width="26px"
+            />)
+          : (
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+              alt="White Heart Icon"
+            />)}
+      </button>
+      <br />
+      <span data-testid="recipe-category">
+        Category:
+        { ' ' }
+        { strCategory }
       </span>
-      <span data-testid="instructions">{ mealRecipe.strInstructions }</span>
-      <video data-testid="video" width="320" height="240" controls>
-        <source src={ mealRecipe.strYoutube } type="video/youtube" />
-        <track kind="captions" src={ mealRecipe.strYoutube } />
-        Seu navegador nao suporta tags de vídeo.
-      </video>
-      <RecipeCards data-testid="0-recomendation-card" />
-      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
+      <br />
+      <Ingredients mealRecipe={ Object.entries(mealRecipe) } />
+      <span data-testid="instructions">
+        Instructions:
+        { ' ' }
+        { strInstructions }
+      </span>
+      <br />
+      <iframe
+        title="video"
+        data-testid="video"
+        width="320"
+        height="240"
+        src={ `https://www.youtube.com/embed/${link !== undefined && link.split('v=')[1]}` }
+      >
+        Your browser does not support the video tag.
+      </iframe>
+      <div data-testid="0-recomendation-card">
+        <span>Side Dishes Recommendeds:</span>
+        <br />
+        { drink && drink.slice(0, SIX).map((drinks, index) => (
+          <DrinkCards
+            key={ drinks.idDrink }
+            index={ index }
+            idDrink={ drinks.idDrink }
+            strDrink={ drinks.strDrink }
+            strDrinkThumb={ drinks.strDrinkThumb }
+          />
+        )) }
+      </div>
+      { !startButton ? '' : (
+        <Link to={ `/comidas/${id}/in-progress` }>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            id="start-btn"
+            onClick={ handleClick }
+          >
+            Start Recipe
+          </button>
+        </Link>)}
     </div>
   );
 }

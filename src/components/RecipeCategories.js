@@ -6,7 +6,7 @@ export default function RecipeCategories() {
   const [categories, setCategories] = useState('');
   const [buttonsArray, setButtonArray] = useState([]);
   const [lastCategory, setLastCategory] = useState('');
-  const { meals, setMeals } = useContext(DrinksAndFoodsContext);
+  const { setMeals } = useContext(DrinksAndFoodsContext);
 
   const FIVE = 5;
 
@@ -54,21 +54,18 @@ export default function RecipeCategories() {
       >
         All
       </button>
-      { categories && categories.slice(0, FIVE).map(({ strCategory }) => {
-        console.log(meals);
-        return (
-          <button
-            data-testid={ `${strCategory}-category-filter` }
-            className={ activeBtn(strCategory) }
-            value={ strCategory }
-            type="button"
-            key={ strCategory }
-            onClick={ handleOnClick }
-          >
-            {strCategory}
-          </button>
-        );
-      }) }
+      { categories && categories.slice(0, FIVE).map(({ strCategory }) => (
+        <button
+          data-testid={ `${strCategory}-category-filter` }
+          className={ activeBtn(strCategory) }
+          value={ strCategory }
+          type="button"
+          key={ strCategory }
+          onClick={ handleOnClick }
+        >
+          {strCategory}
+        </button>
+      )) }
     </div>
   );
 }
