@@ -21,6 +21,7 @@ export default function Ingredients() {
     if (ingrediente[2] === 'bebidas') {
       filterByIngredientDrinks(setIngredientsList, ingrediente[4]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
