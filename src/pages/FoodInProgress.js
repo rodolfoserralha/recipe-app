@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { apiMealsRecipe } from '../servicesContext/mealsApi';
-import DrinksAndFoodsContext from '../context/Foods&Drinks';
 import Ingredients from '../components/FoodIngredientsInProgr';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -11,8 +10,6 @@ export default function FoodInProgress(props) {
   const { match: { params: { id }, url } } = props;
   const [mealRecipe, setMealsRecipe] = useState({});
   const [shareButton, setShareButton] = useState(false);
-
-  const { setRecipeComplete } = useContext(DrinksAndFoodsContext);
 
   const { idMeal, strArea, strCategory, strMeal, strMealThumb,
     strInstructions } = mealRecipe;
@@ -53,6 +50,31 @@ export default function FoodInProgress(props) {
       localStorage.setItem('favoriteRecipes', saveRecipes);
     } else localStorage.setItem('favoriteRecipes', removedRecipe);
     setFavoriteButton(!favoriteButton);
+  }
+
+  //
+
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneRecipesArray = doneRecipes || [];
+  let doneRecipe = [{
+    id: idMeal,
+    type: 'comida',
+    name: strMeal,
+    done: false,
+  }];
+
+  const saveDoneRecipesArray = [...doneRecipesArray, ...doneRecipe];
+  const saveDoneRecipes = JSON.stringify(saveDoneRecipesArray);
+  localStorage.setItem('doneRecipes', saveDoneRecipes);
+
+  function handleRecipeComplete() {
+    doneRecipe = [{
+      id: idMeal,
+      type: 'comida',
+      name: strMeal,
+      done: true,
+    }];
+    localStorage.setItem('doneRecipes', saveDoneRecipes);
   }
 
   return (
@@ -117,7 +139,7 @@ export default function FoodInProgress(props) {
         data-testid="finish-recipe-btn"
         type="button"
         id="finish-btn"
-        onChange={ setRecipeComplete(true) }
+        onClick={ handleRecipeComplete }
       >
         Finish Recipe
       </button>

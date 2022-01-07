@@ -31,7 +31,6 @@ export default function Ingredients(props) {
             >
               {`${measureArray[index][1]} ${ingredients[1]}`}
               { ' ' }
-              <input type="checkbox" />
             </li>))
         }
       </ol>
