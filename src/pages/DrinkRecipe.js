@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import RecipeCards from '../components/RecipeCards';
 import Ingredients from '../components/DrinkIngredients';
 import { apiDrinksRecipe } from '../servicesContext/drinksAPI';
 import { apiMealsDidMount } from '../servicesContext/mealsApi';
