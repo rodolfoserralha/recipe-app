@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Ingredients from '../components/FoodIngredients';
@@ -7,18 +7,12 @@ import { drinkApiDidMount } from '../servicesContext/drinksAPI';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import DrinksAndFoodsContext from '../context/Foods&Drinks';
 
 export default function FoodRecipe(props) {
   const { match: { params: { id }, url } } = props;
   const [mealRecipe, setMealsRecipe] = useState({});
   const [drink, setDrink] = useState([]);
   const [shareButton, setShareButton] = useState(false);
-
-  const {
-    recipeComplete,
-    startRecipe,
-    setStartRecipe } = useContext(DrinksAndFoodsContext);
 
   const SIX = 6;
   const link = mealRecipe.strYoutube;
@@ -32,10 +26,6 @@ export default function FoodRecipe(props) {
   useEffect(() => {
     drinkApiDidMount(setDrink);
   }, [setDrink]);
-
-  function handleClick() {
-    setStartRecipe(!startRecipe);
-  }
 
   function handleShare() {
     setShareButton(true);
@@ -60,8 +50,9 @@ export default function FoodRecipe(props) {
   const removedRecipe = JSON.stringify(removeFromArray);
 
   function isFavorite() {
-    return !!localStorage.getItem('favoriteRecipes');
+    return favoritesArray.some((favorite) => favorite.id === id);
   }
+
   const [favoriteButton, setFavoriteButton] = useState(isFavorite());
 
   function handleFavorite() {
@@ -69,6 +60,19 @@ export default function FoodRecipe(props) {
       localStorage.setItem('favoriteRecipes', saveRecipes);
     } else localStorage.setItem('favoriteRecipes', removedRecipe);
     setFavoriteButton(!favoriteButton);
+  }
+
+  //
+
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneRecipesArray = doneRecipes || [];
+
+  function isStart() {
+    return doneRecipesArray.some((favorite) => favorite.id === id);
+  }
+
+  function isDone() {
+    return doneRecipesArray.some((favorite) => favorite.done === true);
   }
 
   return (
@@ -165,15 +169,14 @@ export default function FoodRecipe(props) {
         </div>
       </div>
       <Link to={ `/comidas/${id}/in-progress` }>
-        { recipeComplete ? ''
+        { isDone() ? ''
           : (
             <button
               data-testid="start-recipe-btn"
               type="button"
               id="start-btn"
-              onClick={ handleClick }
             >
-              {recipeComplete && startRecipe === false ? 'Continue Recipe'
+              {isDone() === false && isStart() === true ? 'Continue Recipe'
                 : 'Start Recipe' }
             </button>)}
       </Link>

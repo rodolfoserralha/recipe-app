@@ -7,7 +7,7 @@ export default function Ingredients(props) {
     (ingredients) => ingredients[0].includes('strIngredient'),
   );
   const ingredientArray = allIngredientsArray.filter(
-    (ingredients) => ingredients[1] !== '',
+    (ingredients) => ingredients[1] !== '' && ingredients[1] !== null,
   );
   const allMeasureArray = mealRecipe.filter(
     (measure) => measure[0].includes('strMeasure'),
@@ -30,7 +30,7 @@ export default function Ingredients(props) {
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {`${measureArray[index][1]} ${ingredients[1]}`}
-
+              { ' ' }
             </li>))
         }
       </ol>

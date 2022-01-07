@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Ingredients(props) {
-  const { drinkRecipe } = props;
-  const allIngredientsArray = drinkRecipe.filter(
+  const { mealRecipe } = props;
+  const allIngredientsArray = mealRecipe.filter(
     (ingredients) => ingredients[0].includes('strIngredient'),
   );
   const ingredientArray = allIngredientsArray.filter(
     (ingredients) => ingredients[1] !== '' && ingredients[1] !== null,
   );
-  const allMeasureArray = drinkRecipe.filter(
+  const allMeasureArray = mealRecipe.filter(
     (measure) => measure[0].includes('strMeasure'),
   );
   const measureArray = allMeasureArray.filter(
-    (measure) => measure[1] !== null,
-  ).map((measure) => measure[1]);
+    (measure) => measure[1] !== ' ',
+  );
 
   return (
     <>
@@ -22,22 +22,23 @@ export default function Ingredients(props) {
         Ingredients:
         { ' ' }
       </span>
-      <ul>
+      <ol>
         {
           ingredientArray.map((ingredients, index) => (
             <li
               key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
+              data-testid={ `${index}-ingredient-step` }
             >
-              {`${measureArray[index] || ''} ${ingredients[1]}`}
+              {`${measureArray[index][1]} ${ingredients[1]}`}
               { ' ' }
+              <input type="checkbox" />
             </li>))
         }
-      </ul>
+      </ol>
     </>
   );
 }
 
 Ingredients.propTypes = {
-  drinkRecipe: PropTypes.arrayOf.isRequired,
+  mealRecipe: PropTypes.arrayOf.isRequired,
 };

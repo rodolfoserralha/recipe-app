@@ -27,10 +27,11 @@ export default function Ingredients(props) {
           ingredientArray.map((ingredients, index) => (
             <li
               key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
+              data-testid={ `${index}-ingredient-step` }
             >
               {`${measureArray[index] || ''} ${ingredients[1]}`}
               { ' ' }
+              <input type="checkbox" />
             </li>))
         }
       </ul>
