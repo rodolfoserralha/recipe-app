@@ -13,7 +13,7 @@ import DrinksAndFoodsContext from '../context/Foods&Drinks';
 export default function DrinkRecipe(props) {
   const { match: { params: { id }, url } } = props;
   const [drinkRecipe, setDrinkRecipe] = useState({});
-  const [meal, setMeals] = useState([]);
+  const [meals, setMeals] = useState([]);
   const [shareButton, setShareButton] = useState(false);
 
   const {
@@ -128,18 +128,32 @@ export default function DrinkRecipe(props) {
         { strInstructions }
       </span>
       <br />
-      <div data-testid="0-recomendation-card">
+      <div>
         <span>Side Meals Recommendeds:</span>
         <br />
-        { meal && meal.slice(0, SIX).map((food, index) => (
-          <RecipeCards
-            key={ food.idMeal }
-            index={ index }
-            idMeal={ food.idMeal }
-            strMeal={ food.strMeal }
-            strMealThumb={ food.strMealThumb }
-          />
-        )) }
+        <div className="container">
+          <div className="carousel">
+            { meals && meals.slice(0, SIX).map((meal, index) => (
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                key={ meal.idMeal }
+                className="item"
+              >
+                <div className="image">
+                  <img src={ meal.strMealThumb } alt="" />
+                </div>
+                <div className="info">
+                  <span
+                    data-testid={ `${index}-recomendation-title` }
+                    className="name"
+                  >
+                    { meal.strMeal }
+                  </span>
+                </div>
+              </div>
+            )) }
+          </div>
+        </div>
       </div>
       <Link to={ `/bebidas/${id}/in-progress` }>
         { recipeComplete ? ''

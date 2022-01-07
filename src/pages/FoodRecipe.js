@@ -138,18 +138,32 @@ export default function FoodRecipe(props) {
       >
         Your browser does not support the video tag.
       </iframe>
-      <div data-testid="0-recomendation-card">
+      <div>
         <span>Side Dishes Recommendeds:</span>
         <br />
-        { drink && drink.slice(0, SIX).map((drinks, index) => (
-          <DrinkCards
-            key={ drinks.idDrink }
-            index={ index }
-            idDrink={ drinks.idDrink }
-            strDrink={ drinks.strDrink }
-            strDrinkThumb={ drinks.strDrinkThumb }
-          />
-        )) }
+        <div className="container">
+          <div className="carousel">
+            { drink && drink.slice(0, SIX).map((drinks, index) => (
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                key={ index }
+                className="item"
+              >
+                <div className="image">
+                  <img src={ drinks.strDrinkThumb } alt="" />
+                </div>
+                <div className="info">
+                  <span
+                    data-testid={ `${index}-recomendation-title` }
+                    className="name"
+                  >
+                    { drinks.strDrink }
+                  </span>
+                </div>
+              </div>
+            )) }
+          </div>
+        </div>
       </div>
       <Link to={ `/comidas/${id}/in-progress` }>
         { recipeComplete ? ''

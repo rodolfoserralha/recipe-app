@@ -196,3 +196,48 @@ footer {
   text-align: center;
   width: 90%;
 }
+
+.container {
+  max-width: 340px;
+}
+
+.container .carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.container .carousel .item {
+  background-color: rgb(238, 236, 236);
+  border-radius: 5px;
+  flex: none;
+  margin: 10px;
+  padding: 10px;
+  width: 130px;
+}
+
+.container .carousel .item .image img {
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+.container .carousel .item .info {
+  display: flex;
+  flex-direction: column;
+  height: 30px;
+  justify-content: space-between;
+}
+
+.container .carousel .item .info span {
+  border-radius: 10px;
+  display: block;
+  padding: 5px;
+  text-align: center;
+}
+
+.container .carousel .item .info .name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
