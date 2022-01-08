@@ -47,9 +47,6 @@ export default function Profile() {
           Sair
         </button>
       </div>
-      <h2>
-        Perfil
-      </h2>
       <Footer />
     </>
   );
