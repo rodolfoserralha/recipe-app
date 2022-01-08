@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import FoodsDrinksProvider from './context/Foods&DrinksProvider';
+import LoginProvider from './context/LoginProvider';
 
 ReactDOM.render(
-  <FoodsDrinksProvider>
-    <App />
-  </FoodsDrinksProvider>,
+  <LoginProvider>
+    <FoodsDrinksProvider>
+      <App />
+    </FoodsDrinksProvider>
+  </LoginProvider>,
   document.getElementById('root'),
 );
 
