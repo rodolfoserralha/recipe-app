@@ -47,7 +47,7 @@ export default function FavoriteRecipes() {
         </button>
       </div>
       {
-        favorites.map((recipe, index) => (
+        favorites && (favorites.map((recipe, index) => (
           <Cards
             key={ recipe.id }
             index={ index }
@@ -59,7 +59,7 @@ export default function FavoriteRecipes() {
             name={ recipe.name }
             type={ recipe.type }
           />
-        ))
+        )))
       }
     </>
   );

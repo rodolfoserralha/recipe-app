@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import LoginContext from '../context/LoginContext';
 
 export default function Profile() {
-  const { email } = (JSON.parse(localStorage.getItem('user')));
+  const { user: { email } } = useContext(LoginContext);
+  // const { email } = (JSON.parse(localStorage.getItem('user')));
   const history = useHistory();
 
   function handleLogout() {
@@ -45,6 +47,9 @@ export default function Profile() {
           Sair
         </button>
       </div>
+      <h2>
+        Perfil
+      </h2>
       <Footer />
     </>
   );

@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginProvider from '../context/LoginProvider';
+import LoginContext from '../context/LoginContext';
 
 function Login() {
   const history = useHistory();
+  const {
+    user: {
+      email,
+      password,
+    },
+    setEmail,
+    setPassword,
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const userData = {
-    email,
-    password,
-  };
+  } = useContext(LoginContext);
+  // const userData = {
+  //   email,
+  //   password,
+  // };
 
   function isValidEmail(userEmail) {
     const regexEmail = /^([a-z\d.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
@@ -33,35 +38,33 @@ function Login() {
   }
 
   return (
-    <LoginProvider value={ userData }>
-      <div id="login-father">
-        <div id="login-container">
-          <form id="login-form" onSubmit={ onSubmitLogin }>
-            <input
-              data-testid="email-input"
-              type="email"
-              value={ email }
-              onChange={ ({ target }) => setEmail(target.value) }
-              placeholder="Email"
-            />
-            <input
-              data-testid="password-input"
-              type="password"
-              value={ password }
-              onChange={ ({ target }) => setPassword(target.value) }
-              placeholder="Senha"
-            />
-            <button
-              type="submit"
-              data-testid="login-submit-btn"
-              disabled={ !validateLogin() }
-            >
-              Login
-            </button>
-          </form>
-        </div>
+    <div id="login-father">
+      <div id="login-container">
+        <form id="login-form" onSubmit={ onSubmitLogin }>
+          <input
+            data-testid="email-input"
+            type="email"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+            placeholder="Email"
+          />
+          <input
+            data-testid="password-input"
+            type="password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+            placeholder="Senha"
+          />
+          <button
+            type="submit"
+            data-testid="login-submit-btn"
+            disabled={ !validateLogin() }
+          >
+            Login
+          </button>
+        </form>
       </div>
-    </LoginProvider>
+    </div>
   );
 }
 
