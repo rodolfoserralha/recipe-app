@@ -6,7 +6,7 @@ import LoginContext from '../context/LoginContext';
 
 export default function Profile() {
   const { user: { email } } = useContext(LoginContext);
-  // const { email } = (JSON.parse(localStorage.getItem('user')));
+  const { email: emailLocal } = (JSON.parse(localStorage.getItem('user')));
   const history = useHistory();
 
   function handleLogout() {
@@ -18,7 +18,7 @@ export default function Profile() {
     <>
       <Header title="Perfil" />
       <div className="parent-cards">
-        <h2 data-testid="profile-email">{ email }</h2>
+        <h2 data-testid="profile-email">{ email || emailLocal }</h2>
 
         <button
           className="explore-btn"
