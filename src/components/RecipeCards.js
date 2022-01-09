@@ -6,7 +6,10 @@ function RecipeCards(props) {
   const { index, strMeal, strMealThumb, idMeal } = props;
   return (
     <div data-testid={ `${index}-recipe-card` } className="recipe-card">
-      <Link to={ `/comidas/${idMeal}` }>
+      <Link
+        style={ { color: 'black', textDecoration: 'none' } }
+        to={ `/comidas/${idMeal}` }
+      >
         <img
           className="recipe-imgs"
           data-testid={ `${index}-card-img` }

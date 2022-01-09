@@ -45,9 +45,10 @@ export default function RecipeCategories() {
   }
 
   return (
-    <div id="teste">
+    <div className="categories-btns">
       <button
         data-testid="All-category-filter"
+        className="category-btn"
         value="All"
         type="button"
         onClick={ handleOnClick }

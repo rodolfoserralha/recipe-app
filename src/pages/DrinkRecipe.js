@@ -71,7 +71,7 @@ export default function DrinkRecipe(props) {
   }
 
   return (
-    <div>
+    <div className="recipe-details">
       <h1 data-testid="recipe-title">
         {strDrink}
       </h1>
@@ -83,53 +83,51 @@ export default function DrinkRecipe(props) {
         height="240"
       />
       <br />
-      <button
-        type="button"
-        id="share-btn"
-        data-testid="share-btn"
-        onClick={ handleShare }
-      >
-        <img src={ shareIcon } alt="Share Icon" />
-      </button>
-      {shareButton && <span>Link copiado!</span>}
-      <button
-        type="button"
-        id="favorite-btn"
-        onClick={ handleFavorite }
-        src={ favoriteButton ? { blackHeartIcon } : { whiteHeartIcon } }
-      >
-        { favoriteButton
-          ? (
-            <img
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-              alt="Black Heart Icon"
-              width="26px"
-            />)
-          : (
-            <img
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              alt="White Heart Icon"
-            />)}
-      </button>
-      <br />
+      <div>
+        <button
+          type="button"
+          id="share-btn"
+          data-testid="share-btn"
+          onClick={ handleShare }
+        >
+          <img src={ shareIcon } alt="Share Icon" />
+        </button>
+        {shareButton && <span>Link copiado!</span>}
+        <button
+          type="button"
+          id="favorite-btn"
+          onClick={ handleFavorite }
+          src={ favoriteButton ? { blackHeartIcon } : { whiteHeartIcon } }
+        >
+          { favoriteButton
+            ? (
+              <img
+                data-testid="favorite-btn"
+                src={ blackHeartIcon }
+                alt="Black Heart Icon"
+                width="26px"
+              />)
+            : (
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="White Heart Icon"
+              />)}
+        </button>
+      </div>
       <span data-testid="recipe-category">
         Category:
         { ' ' }
-        {strAlcoholic}
+        <p>{strAlcoholic}</p>
       </span>
-      <br />
       <Ingredients drinkRecipe={ Object.entries(drinkRecipe) } />
       <span data-testid="instructions">
         Instructions:
         { ' ' }
-        { strInstructions }
+        <p id="instructions-p">{ strInstructions }</p>
       </span>
-      <br />
       <div>
         <span>Side Meals Recommendeds:</span>
-        <br />
         <div className="container">
           <div className="carousel">
             { meals && meals.slice(0, SIX).map((meal, index) => (

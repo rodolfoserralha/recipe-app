@@ -44,10 +44,11 @@ export default function DrinkCategories() {
   }
 
   return (
-    <div>
+    <div className="categories-btns">
       <button
         data-testid="All-category-filter"
         value="All"
+        className="category-btn"
         type="button"
         onClick={ handleOnClick }
       >
