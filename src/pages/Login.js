@@ -41,6 +41,7 @@ function Login() {
     <div id="login-father">
       <div id="login-container">
         <form id="login-form" onSubmit={ onSubmitLogin }>
+          <h2 id="recipe-app">Recipe App</h2>
           <input
             data-testid="email-input"
             type="email"

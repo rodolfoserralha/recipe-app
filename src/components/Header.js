@@ -21,7 +21,7 @@ function Header(props) {
           <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ profileIcon } alt="Profile Icon" />
           </Link>
-          <h1 data-testid="page-title">{ title }</h1>
+          <h1 id="page-title" data-testid="page-title">{ title }</h1>
           { hasSearch && (
             <button
               id="searchInput"

@@ -14,6 +14,7 @@ export default function FavoriteRecipes() {
     const justFoodArray = favoritesArray.filter((favorite) => favorite.type === 'comida');
     setFavorites(justFoodArray);
   }
+
   function justDrinks() {
     const justDrinksArray = favoritesArray
       .filter((favorite) => favorite.type === 'bebida');
@@ -23,24 +24,27 @@ export default function FavoriteRecipes() {
   return (
     <>
       <Header title="Receitas Favoritas" />
-      <div>
+      <div className="parent-cards">
         <button
-          type="button"
           data-testid="filter-by-all-btn"
+          className="category-btn"
+          type="button"
           onClick={ showAll }
         >
           All
         </button>
         <button
-          type="button"
           data-testid="filter-by-food-btn"
+          className="category-btn"
+          type="button"
           onClick={ justFood }
         >
           Food
         </button>
         <button
-          type="button"
           data-testid="filter-by-drink-btn"
+          className="category-btn"
+          type="button"
           onClick={ justDrinks }
         >
           Drinks
