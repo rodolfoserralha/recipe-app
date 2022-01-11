@@ -122,7 +122,7 @@ export default function DrinkRecipe(props) {
       </span>
       <Ingredients drinkRecipe={ Object.entries(drinkRecipe) } />
       <span data-testid="instructions">
-        Instructions:
+        <p className="instruction">Instructions:</p>
         { ' ' }
         <p id="instructions-p">{ strInstructions }</p>
       </span>
@@ -159,6 +159,7 @@ export default function DrinkRecipe(props) {
               data-testid="start-recipe-btn"
               type="button"
               id="start-btn"
+              className="footer-btns"
               onClick={ handleClick }
             >
               {recipeComplete && startRecipe === false ? 'Continue Recipe'

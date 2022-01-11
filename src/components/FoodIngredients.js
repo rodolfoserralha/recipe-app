@@ -18,11 +18,11 @@ export default function Ingredients(props) {
 
   return (
     <>
-      <span>
+      <span className="ul-left">
         Ingredients:
         { ' ' }
       </span>
-      <ol>
+      <ul className="ul-left">
         {
           ingredientArray.map((ingredients, index) => (
             <li
@@ -33,7 +33,7 @@ export default function Ingredients(props) {
               { ' ' }
             </li>))
         }
-      </ol>
+      </ul>
     </>
   );
 }

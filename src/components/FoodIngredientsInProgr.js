@@ -19,10 +19,9 @@ export default function Ingredients(props) {
   return (
     <>
       <span>
-        Ingredients:
-        { ' ' }
+        <p>Ingredients:</p>
       </span>
-      <ol>
+      <ul>
         {
           ingredientArray.map((ingredients, index) => (
             <li
@@ -34,7 +33,7 @@ export default function Ingredients(props) {
               <input type="checkbox" />
             </li>))
         }
-      </ol>
+      </ul>
     </>
   );
 }
