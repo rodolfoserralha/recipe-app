@@ -64,15 +64,30 @@ export default function FoodRecipe(props) {
 
   //
 
+  const inProgRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgRecipesArray = inProgRecipes || [];
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const doneRecipesArray = doneRecipes || [];
 
   function isStart() {
-    return doneRecipesArray.some((favorite) => favorite.id === id);
+    return inProgRecipesArray.some((item) => item.id === id);
   }
 
   function isDone() {
-    return doneRecipesArray.some((favorite) => favorite.done === true);
+    return doneRecipesArray.some((item) => item.id === id);
+  }
+
+  function handleStartRecipe() {
+    const ProgRecipe = [{
+      id: idMeal,
+      type: 'comida',
+      name: strMeal,
+      checks: [],
+    }];
+
+    const saveInProgRecipesArray = [...inProgRecipesArray, ...ProgRecipe];
+    const saveInProgRecipes = JSON.stringify(saveInProgRecipesArray);
+    localStorage.setItem('inProgressRecipes', saveInProgRecipes);
   }
 
   return (
@@ -173,6 +188,7 @@ export default function FoodRecipe(props) {
               data-testid="start-recipe-btn"
               type="button"
               id="start-btn"
+              onClick={ handleStartRecipe }
             >
               {isDone() === false && isStart() === true ? 'Continue Recipe'
                 : 'Start Recipe' }

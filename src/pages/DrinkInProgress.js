@@ -1,20 +1,40 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { apiDrinksRecipe } from '../servicesContext/drinksAPI';
-import DrinksAndFoodsContext from '../context/Foods&Drinks';
 import Ingredients from '../components/DrinkIngredientsInProgr';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function DrinkInProgress(props) {
-  const { setRecipeComplete } = useContext(DrinksAndFoodsContext);
-  const { match: { params: { id }, url } } = props;
+  const { match: { params: { id } } } = props;
   const [drinkRecipe, setDrinkRecipe] = useState({});
   const [shareButton, setShareButton] = useState(false);
+  const [isChecked, setIsChecked] = useState([]);
+
+  const history = useHistory();
 
   const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb,
     strInstructions } = drinkRecipe;
+
+  const ingredientArray = Object.entries(drinkRecipe).filter(
+    (ingredients) => ingredients[0].includes('strIngredient'),
+  ).filter((ingredients) => ingredients[1] !== '' && ingredients[1] !== null);
+
+  const measureArray = Object.entries(drinkRecipe).filter(
+    (measure) => measure[0].includes('strMeasure'),
+  ).filter((measure) => measure[1] !== ' ');
+
+  function getDoneDate() {
+    const DEZ = 10;
+    const date = new Date();
+    const day = date.getDate();
+    const m = date.getMonth() + 1;
+    const month = m < DEZ ? `0${m}` : m;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 
   useEffect(() => {
     apiDrinksRecipe(id, setDrinkRecipe);
@@ -22,7 +42,7 @@ export default function DrinkInProgress(props) {
 
   function handleShare() {
     setShareButton(true);
-    const linkRecipe = `http://localhost:3000${url}`;
+    const linkRecipe = `http://localhost:3000/bebidas/${id}`;
     navigator.clipboard.writeText(linkRecipe);
   }
 
@@ -52,6 +72,45 @@ export default function DrinkInProgress(props) {
       localStorage.setItem('favoriteRecipes', saveRecipes);
     } else localStorage.setItem('favoriteRecipes', removedRecipe);
     setFavoriteButton(!favoriteButton);
+  }
+
+  //
+
+  const inProgRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgRecipesArray = inProgRecipes || [];
+  const ProgRecipe = [{
+    id: idDrink,
+    type: 'bebida',
+    name: strDrink,
+    // checks: isChecked,
+  }];
+
+  const saveInProgRecipesArray = [...inProgRecipesArray, ...ProgRecipe];
+  const saveInProgRecipes = JSON.stringify(saveInProgRecipesArray);
+  localStorage.setItem('inProgressRecipes', saveInProgRecipes);
+
+  function handleRecipeComplete() {
+    const removeInProgress = inProgRecipesArray.filter((item) => item.id !== id);
+    const removedArray = JSON.stringify(removeInProgress);
+    localStorage.setItem('inProgressRecipes', removedArray);
+
+    const doneRecipe = [{
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: getDoneDate(),
+      tags: [],
+    }];
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipesArray = doneRecipes || [];
+    localStorage.setItem('doneRecipes',
+      JSON.stringify([...doneRecipesArray, ...doneRecipe]));
+
+    history.push('/receitas-feitas');
   }
 
   return (
@@ -105,7 +164,12 @@ export default function DrinkInProgress(props) {
         {strAlcoholic}
       </span>
       <br />
-      <Ingredients drinkRecipe={ Object.entries(drinkRecipe) } />
+      <Ingredients
+        measureArray={ measureArray }
+        ingredientArray={ ingredientArray }
+        isChecked={ isChecked }
+        setIsChecked={ setIsChecked }
+      />
       <span data-testid="instructions">
         Instructions:
         { ' ' }
@@ -116,7 +180,8 @@ export default function DrinkInProgress(props) {
         data-testid="finish-recipe-btn"
         type="button"
         id="finish-btn"
-        onChange={ setRecipeComplete(true) }
+        onClick={ handleRecipeComplete }
+        disabled={ isChecked.length !== ingredientArray.length }
       >
         Finish Recipe
       </button>

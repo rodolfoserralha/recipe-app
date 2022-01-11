@@ -13,10 +13,6 @@ function Login() {
     setPassword,
 
   } = useContext(LoginContext);
-  // const userData = {
-  //   email,
-  //   password,
-  // };
 
   function isValidEmail(userEmail) {
     const regexEmail = /^([a-z\d.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;

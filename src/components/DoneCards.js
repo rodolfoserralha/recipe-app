@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function Cards(props) {
-  const { id, index, alcoholicOrNot, area, category, image, name, type } = props;
+  const { id,
+    index, alcoholicOrNot, area, category, date, image, name, tags, type } = props;
   const [shareButton, setShareButton] = useState(false);
 
   function handleShare() {
@@ -36,8 +37,11 @@ function Cards(props) {
           )
             : <p data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</p>
         }
-        <p data-testid={ `${index}-horizontal-done-date` }>Data</p>
-        <p data-testid={ `${index}-?-horizontal-tag` }>Tag</p>
+        <p data-testid={ `${index}-horizontal-done-date` }>{ date }</p>
+        {
+          tags.map((tag) => (
+            <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{ tag }</p>))
+        }
       </Link>
       <button
         type="button"
@@ -57,10 +61,12 @@ Cards.propTypes = {
   alcoholicOrNot: PropTypes.string.isRequired,
   area: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf.isRequired,
   type: PropTypes.string.isRequired,
 };
 
