@@ -2,19 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Ingredients(props) {
-  const { drinkRecipe } = props;
-  const allIngredientsArray = drinkRecipe.filter(
-    (ingredients) => ingredients[0].includes('strIngredient'),
-  );
-  const ingredientArray = allIngredientsArray.filter(
-    (ingredients) => ingredients[1] !== '' && ingredients[1] !== null,
-  );
-  const allMeasureArray = drinkRecipe.filter(
-    (measure) => measure[0].includes('strMeasure'),
-  );
-  const measureArray = allMeasureArray.filter(
-    (measure) => measure[1] !== null,
-  ).map((measure) => measure[1]);
+  const { ingredientArray, measureArray, isChecked, setIsChecked } = props;
 
   return (
     <>
@@ -31,7 +19,11 @@ export default function Ingredients(props) {
             >
               {`${measureArray[index] || ''} ${ingredients[1]}`}
               { ' ' }
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                onClick={ () => setIsChecked([...isChecked, ingredients[1]]) }
+                checked={ isChecked.includes(ingredients[1]) }
+              />
             </li>))
         }
       </ul>
@@ -40,5 +32,8 @@ export default function Ingredients(props) {
 }
 
 Ingredients.propTypes = {
-  drinkRecipe: PropTypes.arrayOf.isRequired,
+  measureArray: PropTypes.arrayOf.isRequired,
+  ingredientArray: PropTypes.arrayOf.isRequired,
+  isChecked: PropTypes.arrayOf.isRequired,
+  setIsChecked: PropTypes.func.isRequired,
 };

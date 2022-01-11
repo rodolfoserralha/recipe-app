@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Ingredients from '../components/DrinkIngredients';
@@ -7,18 +7,12 @@ import { apiMealsDidMount } from '../servicesContext/mealsApi';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import DrinksAndFoodsContext from '../context/Foods&Drinks';
 
 export default function DrinkRecipe(props) {
   const { match: { params: { id }, url } } = props;
   const [drinkRecipe, setDrinkRecipe] = useState({});
   const [meals, setMeals] = useState([]);
   const [shareButton, setShareButton] = useState(false);
-
-  const {
-    recipeComplete,
-    startRecipe,
-    setStartRecipe } = useContext(DrinksAndFoodsContext);
 
   const SIX = 6;
   const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb,
@@ -31,10 +25,6 @@ export default function DrinkRecipe(props) {
   useEffect(() => {
     apiMealsDidMount(setMeals);
   }, [setMeals]);
-
-  function handleClick() {
-    setStartRecipe(!startRecipe);
-  }
 
   function handleShare() {
     setShareButton(true);
@@ -68,6 +58,21 @@ export default function DrinkRecipe(props) {
       localStorage.setItem('favoriteRecipes', saveRecipes);
     } else localStorage.setItem('favoriteRecipes', removedRecipe);
     setFavoriteButton(!favoriteButton);
+  }
+
+  //
+
+  const inProgRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgRecipesArray = inProgRecipes || [];
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneRecipesArray = doneRecipes || [];
+
+  function isStart() {
+    return inProgRecipesArray.some((item) => item.id === id);
+  }
+
+  function isDone() {
+    return doneRecipesArray.some((item) => item.id === id);
   }
 
   return (
@@ -153,7 +158,7 @@ export default function DrinkRecipe(props) {
         </div>
       </div>
       <Link to={ `/bebidas/${id}/in-progress` }>
-        { recipeComplete ? ''
+        { isDone() ? ''
           : (
             <button
               data-testid="start-recipe-btn"
@@ -162,7 +167,7 @@ export default function DrinkRecipe(props) {
               className="footer-btns"
               onClick={ handleClick }
             >
-              {recipeComplete && startRecipe === false ? 'Continue Recipe'
+              {isDone() === false && isStart() === true ? 'Continue Recipe'
                 : 'Start Recipe' }
             </button>)}
       </Link>
