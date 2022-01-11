@@ -2,27 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Ingredients(props) {
-  const { mealRecipe } = props;
-  const allIngredientsArray = mealRecipe.filter(
-    (ingredients) => ingredients[0].includes('strIngredient'),
-  );
-  const ingredientArray = allIngredientsArray.filter(
-    (ingredients) => ingredients[1] !== '' && ingredients[1] !== null,
-  );
-  const allMeasureArray = mealRecipe.filter(
-    (measure) => measure[0].includes('strMeasure'),
-  );
-  const measureArray = allMeasureArray.filter(
-    (measure) => measure[1] !== ' ',
-  );
+  const { ingredientArray, measureArray,
+    isChecked, setIsChecked,
+    idMeal, strMeal, id } = props;
+
+  const inProgRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgRecipesArray = inProgRecipes || [];
+
+  function checks(ingredients) {
+    const removeFromArray = inProgRecipesArray.filter((item) => item.id !== id);
+    const removedRecipe = JSON.stringify(removeFromArray);
+    localStorage.setItem('inProgressRecipes', removedRecipe);
+
+    setIsChecked([...isChecked, ingredients[1]]);
+
+    const ProgRecipe = [{
+      id: idMeal,
+      type: 'comida',
+      name: strMeal,
+      checks: isChecked,
+    }];
+
+    const saveInProgRecipesArray = [...inProgRecipesArray, ...ProgRecipe];
+    const saveInProgRecipes = JSON.stringify(saveInProgRecipesArray);
+    localStorage.setItem('inProgressRecipes', saveInProgRecipes);
+  }
 
   return (
     <>
+      {/* {console.log(inProgRecipesArray)} */}
       <span>
         Ingredients:
         { ' ' }
       </span>
-      <ol>
+      <ul>
         {
           ingredientArray.map((ingredients, index) => (
             <li
@@ -31,14 +44,38 @@ export default function Ingredients(props) {
             >
               {`${measureArray[index][1]} ${ingredients[1]}`}
               { ' ' }
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                onClick={ () => checks(ingredients) }
+                checked={ isChecked.includes(ingredients[1]) }
+              />
             </li>))
         }
-      </ol>
+        {/* {
+          ingredientArray.map((ingredients, index) => (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {`${measureArray[index][1]} ${ingredients[1]}`}
+              { ' ' }
+              <input
+                type="checkbox"
+                onClick={ () => checks(ingredients) }
+                checked={ inProgRecipesArray === [] ? (
+                  isChecked.includes(ingredients[1]))
+                  : inProgRecipesArray.includes(ingredients[1]) }
+              />
+            </li>))
+        } */}
+      </ul>
     </>
   );
 }
 
 Ingredients.propTypes = {
-  mealRecipe: PropTypes.arrayOf.isRequired,
-};
+  measureArray: PropTypes.arrayOf,
+  ingredientArray: PropTypes.arrayOf,
+  isChecked: PropTypes.arrayOf,
+  id: PropTypes.string,
+}.isRequired;

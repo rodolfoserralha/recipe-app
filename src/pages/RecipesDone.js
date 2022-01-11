@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Cards from '../components/DoneCards';
 
 export default function FavoriteRecipes() {
-  const doneArray = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneArray = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const [done, setDone] = useState(doneArray);
 
   function showAll() {
@@ -57,9 +57,11 @@ export default function FavoriteRecipes() {
             alcoholicOrNot={ recipe.alcoholicOrNot }
             area={ recipe.area }
             category={ recipe.category }
+            date={ recipe.doneDate }
             id={ recipe.id }
             image={ recipe.image }
             name={ recipe.name }
+            tags={ recipe.tags }
             type={ recipe.type }
           />
         )))

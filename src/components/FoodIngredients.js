@@ -22,7 +22,7 @@ export default function Ingredients(props) {
         Ingredients:
         { ' ' }
       </span>
-      <ol>
+      <ul>
         {
           ingredientArray.map((ingredients, index) => (
             <li
@@ -33,7 +33,7 @@ export default function Ingredients(props) {
               { ' ' }
             </li>))
         }
-      </ol>
+      </ul>
     </>
   );
 }

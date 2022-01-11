@@ -6,7 +6,7 @@ function Provider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [recipeComplete, setRecipeComplete] = useState(false);
-  const favoritesArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favoritesArray = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const [favorites, setFavorites] = useState(favoritesArray);
 
   const contextValue = {
