@@ -30,10 +30,8 @@ export default function Ingredients(props) {
 
   return (
     <>
-      {/* {console.log(inProgRecipesArray)} */}
       <span>
-        Ingredients:
-        { ' ' }
+        <p>Ingredients:</p>
       </span>
       <ul>
         {
@@ -51,23 +49,6 @@ export default function Ingredients(props) {
               />
             </li>))
         }
-        {/* {
-          ingredientArray.map((ingredients, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {`${measureArray[index][1]} ${ingredients[1]}`}
-              { ' ' }
-              <input
-                type="checkbox"
-                onClick={ () => checks(ingredients) }
-                checked={ inProgRecipesArray === [] ? (
-                  isChecked.includes(ingredients[1]))
-                  : inProgRecipesArray.includes(ingredients[1]) }
-              />
-            </li>))
-        } */}
       </ul>
     </>
   );

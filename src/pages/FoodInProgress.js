@@ -107,7 +107,6 @@ export default function FoodInProgress(props) {
 
   return (
     <div className="recipe-details">
-      Recipe for Food in Process
       <h1 data-testid="recipe-title">
         {strMeal}
       </h1>
@@ -118,44 +117,44 @@ export default function FoodInProgress(props) {
         width="320"
         height="240"
       />
-      <br />
-      <button
-        type="button"
-        id="share-btn"
-        data-testid="share-btn"
-        onClick={ handleShare }
-      >
-        <img src={ shareIcon } alt="Share Icon" />
-      </button>
-      {shareButton && <span>Link copiado!</span>}
-      <button
-        type="button"
-        id="favorite-btn"
-        onClick={ handleFavorite }
-        src={ favoriteButton ? { blackHeartIcon } : { whiteHeartIcon } }
-      >
-        { favoriteButton
-          ? (
-            <img
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-              alt="Black Heart Icon"
-              width="26px"
-            />)
-          : (
-            <img
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              alt="White Heart Icon"
-            />)}
-      </button>
-      <br />
+      <div>
+        <button
+          type="button"
+          id="share-btn"
+          data-testid="share-btn"
+          onClick={ handleShare }
+        >
+          <img src={ shareIcon } alt="Share Icon" />
+        </button>
+        {shareButton && <span>Link copiado!</span>}
+        <button
+          type="button"
+          id="favorite-btn"
+          onClick={ handleFavorite }
+          src={ favoriteButton ? { blackHeartIcon } : { whiteHeartIcon } }
+        >
+          { favoriteButton
+            ? (
+              <img
+                data-testid="favorite-btn"
+                src={ blackHeartIcon }
+                alt="Black Heart Icon"
+                width="26px"
+              />)
+            : (
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="White Heart Icon"
+              />)}
+        </button>
+      </div>
       <span data-testid="recipe-category">
         Category:
         { ' ' }
         {strCategory}
       </span>
-      <br />
+      <Ingredients mealRecipe={ Object.entries(mealRecipe) } />
       <Ingredients
         id={ id }
         measureArray={ measureArray }
@@ -170,11 +169,11 @@ export default function FoodInProgress(props) {
         { ' ' }
         { strInstructions }
       </span>
-      <br />
       <button
         data-testid="finish-recipe-btn"
         type="button"
         id="finish-btn"
+        className="footer-btns"
         onClick={ handleRecipeComplete }
         disabled={ isChecked.length !== ingredientArray.length }
       >
