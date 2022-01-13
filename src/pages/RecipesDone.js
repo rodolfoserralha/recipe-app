@@ -49,23 +49,25 @@ export default function FavoriteRecipes() {
           Drinks
         </button>
       </div>
-      {
-        done && (done.map((recipe, index) => (
-          <Cards
-            key={ recipe.id }
-            index={ index }
-            alcoholicOrNot={ recipe.alcoholicOrNot }
-            area={ recipe.area }
-            category={ recipe.category }
-            date={ recipe.doneDate }
-            id={ recipe.id }
-            image={ recipe.image }
-            name={ recipe.name }
-            tags={ recipe.tags }
-            type={ recipe.type }
-          />
-        )))
-      }
+      <div className="parent-cards">
+        {
+          done && (done.map((recipe, index) => (
+            <Cards
+              key={ recipe.id }
+              index={ index }
+              alcoholicOrNot={ recipe.alcoholicOrNot }
+              area={ recipe.area }
+              category={ recipe.category }
+              date={ recipe.doneDate }
+              id={ recipe.id }
+              image={ recipe.image }
+              name={ recipe.name }
+              tags={ recipe.tags }
+              type={ recipe.type }
+            />
+          )))
+        }
+      </div>
     </>
   );
 }

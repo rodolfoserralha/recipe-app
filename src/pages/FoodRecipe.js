@@ -92,16 +92,16 @@ export default function FoodRecipe(props) {
 
   return (
     <div className="recipe-details">
-      <h1 data-testid="recipe-title">
-        {strMeal}
-      </h1>
+      <div className="h1-color">
+        <h1 data-testid="recipe-title">
+          {strMeal}
+        </h1>
+      </div>
       <img
         data-testid="recipe-photo"
         src={ strMealThumb }
         alt={ strMeal }
-        className="recipe-photo"
-        width="320"
-        height="240"
+        className="img-details"
       />
       <div>
         <button
@@ -147,6 +147,7 @@ export default function FoodRecipe(props) {
         <p id="instructions-p">{ strInstructions }</p>
       </span>
       <iframe
+        className="video-class"
         title="video"
         data-testid="video"
         width="320"
@@ -156,8 +157,7 @@ export default function FoodRecipe(props) {
         Your browser does not support the video tag.
       </iframe>
       <div>
-        <span>Side Dishes Recommendeds:</span>
-        <br />
+        <span className="side-meals">Side Dishes Recommendeds:</span>
         <div className="container">
           <div className="carousel">
             { drink && drink.slice(0, SIX).map((drinks, index) => (

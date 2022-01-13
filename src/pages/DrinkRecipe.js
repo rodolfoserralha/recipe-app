@@ -77,15 +77,14 @@ export default function DrinkRecipe(props) {
 
   return (
     <div className="recipe-details">
-      <h1 data-testid="recipe-title">
-        {strDrink}
-      </h1>
+      <div className="h1-color">
+        <h1 data-testid="recipe-title">{strDrink}</h1>
+      </div>
       <img
         data-testid="recipe-photo"
         src={ strDrinkThumb }
         alt="foto da bebida"
-        width="320"
-        height="240"
+        className="img-details"
       />
       <br />
       <div>
@@ -131,8 +130,10 @@ export default function DrinkRecipe(props) {
         { ' ' }
         <p id="instructions-p">{ strInstructions }</p>
       </span>
-      <div>
-        <span>Side Meals Recommendeds:</span>
+      <div className="carousel-width">
+        <div className="side-meals">
+          <span>Side Meals Recommendeds:</span>
+        </div>
         <div className="container">
           <div className="carousel">
             { meals && meals.slice(0, SIX).map((meal, index) => (

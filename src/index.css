@@ -174,13 +174,35 @@ fieldset {
   width: 200px;
 }
 
-.recipe-card:hover, .category-btn:hover {
-  transform: scale(1.1);
+.recipe-card img {
+  width: 100%;
 }
 
-.recipe-imgs {
-  margin-bottom: 10px;
-  max-width: 100%;
+.recipe-card-done {
+  border: 1px solid rgb(219, 219, 219);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: row;
+  height: 150px;  
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 320px;
+}
+
+.recipe-card-done .right-done {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.recipe-card-done .recipe-imgs-done {
+  height: 100%;
+}
+
+.recipe-card:hover, .category-btn:hover {
+  transform: scale(1.1);
 }
 
 .parent-cards {
@@ -203,7 +225,7 @@ footer {
 
 .active-btn {
   border: 2.5px solid rgb(0, 0, 0) !important;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .categories-btns {
@@ -211,14 +233,36 @@ footer {
   display: flex;
   height: 40px;
   justify-content: center;
-  width: 100%;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
+.categories-btns-drinks {
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  /* height: 80px; */
+  justify-content: center;
+  overflow: hidden;
+  /* max-width: 100%; */
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .category-btn {
+  border: 1px solid rgb(190, 190, 190);
+  border-right: 1px solid rgb(190, 190, 190);
+  border-left: 1px solid rgb(190, 190, 190);
+  flex-grow: 1;
+  height: 30px;
+}
+
+.category-btn-drink {
   border: none;
   border-right: 1px solid rgb(190, 190, 190);
   border-left: 1px solid rgb(190, 190, 190);
-  flex-grow: 2;
+  width: 30%;
 }
 
 .explore-btns {
@@ -242,6 +286,7 @@ footer {
   justify-content: center;
   width: 100%;
 }
+
 
 .recipe-details h1, .recipe-details button , .recipe-details span{
   margin: 5px;
@@ -268,9 +313,36 @@ footer {
   width: 100%;
 }
 
+.img-details {
+  height: 250px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.recipe-details .h1-color {
+  align-items: center;
+  background-color: rgb(190, 190, 190);
+  display: flex;
+  justify-content: center;
+}
+
+.video-class {
+  align-self: center;
+  margin-bottom: 10px;
+  width: 90% !important;
+}
+
+.side-meals {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
 .container {
+  margin: auto;
   margin-bottom: 60px;
   max-width: 340px;
+  width: 100%;
 }
 
 .container .carousel {

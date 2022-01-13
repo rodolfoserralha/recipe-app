@@ -40,15 +40,15 @@ export default function DrinkCategories() {
   function activeBtn(strCategory) {
     const active = buttonsDrinksArray
       .find((btn) => btn === strCategory);
-    return active ? 'category-btn active-btn' : 'category-btn';
+    return active ? 'category-btn-drink active-btn' : 'category-btn';
   }
 
   return (
-    <div className="categories-btns">
+    <div className="categories-btns-drinks">
       <button
         data-testid="All-category-filter"
         value="All"
-        className="category-btn"
+        className="category-btn-drink"
         type="button"
         onClick={ handleOnClick }
       >

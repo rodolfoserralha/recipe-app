@@ -15,45 +15,55 @@ function Cards(props) {
   }
 
   return (
-    <div
-      data-testid={ `${index}-recipe-card` }
-      className="recipe-card"
-    >
-      <Link to={ `/${type}s/${id}` }>
-        <img
-          className="recipe-imgs"
-          data-testid={ `${index}-horizontal-image` }
-          src={ image }
-          alt={ index }
-        />
-        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-        {
-          type === 'comida' ? (
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { `${area} - ${category}` }
-            </p>
-          )
-            : <p data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</p>
-        }
-        <p data-testid={ `${index}-horizontal-done-date` }>{ date }</p>
-        {
-          tags.map((tag) => (
-            <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{ tag }</p>))
-        }
-      </Link>
-      <button
-        type="button"
-        index="share-btn"
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ shareIcon }
-        onClick={ handleShare }
+    <Link to={ `/${type}s/${id}` }>
+      <div
+        data-testid={ `${index}-recipe-card` }
+        className="recipe-card-done"
       >
-        <img src={ shareIcon } alt="Share Icon" />
-      </button>
-      {shareButton && <span>Link copiado!</span>}
-    </div>
+        <div className="div-img-done">
+          <img
+            className="recipe-imgs-done"
+            data-testid={ `${index}-horizontal-image` }
+            src={ image }
+            alt={ index }
+          />
+        </div>
+        <div className="right-done">
+          <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+          {
+            type === 'comida' ? (
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { `${area} - ${category}` }
+              </p>
+            )
+              : <p data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</p>
+          }
+          <p data-testid={ `${index}-horizontal-done-date` }>{ date }</p>
+          {
+            tags.map((tag) => (
+              <p
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                { tag }
+              </p>))
+          }
+          <button
+            type="button"
+            index="share-btn"
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            onClick={ handleShare }
+            style={ { marginTop: '15px' } }
+          >
+            <img src={ shareIcon } alt="Share Icon" />
+          </button>
+          {shareButton && <span>Link copiado!</span>}
+        </div>
+      </div>
+    </Link>
   );
 }
 
