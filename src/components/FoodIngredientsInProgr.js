@@ -35,7 +35,7 @@ export default function Ingredients(props) {
       </span>
       <ul>
         {
-          ingredientArray.map((ingredients, index) => (
+          ingredientArray && ingredientArray.map((ingredients, index) => (
             <li
               key={ index }
               data-testid={ `${index}-ingredient-step` }
