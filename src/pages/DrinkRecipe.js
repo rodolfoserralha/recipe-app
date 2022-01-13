@@ -165,7 +165,7 @@ export default function DrinkRecipe(props) {
               type="button"
               id="start-btn"
               className="footer-btns"
-              onClick={ handleClick }
+              // onClick={ handleClick }
             >
               {isDone() === false && isStart() === true ? 'Continue Recipe'
                 : 'Start Recipe' }
