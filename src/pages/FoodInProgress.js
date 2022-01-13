@@ -107,15 +107,16 @@ export default function FoodInProgress(props) {
 
   return (
     <div className="recipe-details">
-      <h1 data-testid="recipe-title">
-        {strMeal}
-      </h1>
+      <div className="h1-color">
+        <h1 data-testid="recipe-title">
+          {strMeal}
+        </h1>
+      </div>
       <img
         data-testid="recipe-photo"
         src={ strMealThumb }
         alt="foto da comida"
-        width="320"
-        height="240"
+        className="img-details"
       />
       <div>
         <button
@@ -154,7 +155,7 @@ export default function FoodInProgress(props) {
         { ' ' }
         {strCategory}
       </span>
-      <Ingredients mealRecipe={ Object.entries(mealRecipe) } />
+      {/* <Ingredients mealRecipe={ Object.entries(mealRecipe) } /> */}
       <Ingredients
         id={ id }
         measureArray={ measureArray }
@@ -172,7 +173,6 @@ export default function FoodInProgress(props) {
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        id="finish-btn"
         className="footer-btns"
         onClick={ handleRecipeComplete }
         disabled={ isChecked.length !== ingredientArray.length }

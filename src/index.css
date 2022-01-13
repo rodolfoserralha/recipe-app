@@ -313,6 +313,18 @@ footer {
   width: 100%;
 }
 
+.footer-btns {
+  background-color: rgb(190, 190, 190);
+  border: none;
+  bottom: 0px;
+  font-size: x-large;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: fixed;
+  height: 50px;
+  width: 100%;
+}
+
 .img-details {
   height: 250px;
   object-fit: cover;
@@ -323,6 +335,7 @@ footer {
   align-items: center;
   background-color: rgb(190, 190, 190);
   display: flex;
+  margin: 0 !important;
   justify-content: center;
 }
 
