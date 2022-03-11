@@ -1,5 +1,9 @@
 # Recipe App
-### Para conferir a aplicação em funcionamento, acesse: https://recipe-app-three-iota.vercel.app/
+
+![alt text](https://i.ibb.co/1Rsqkwr/Captura-de-tela-de-2022-03-11-19-33-55.png)
+
+### Para conferir a aplicação em funcionamento, acesse:
+### https://recipe-app-three-iota.vercel.app/
 
 > App de Receitas é uma aplicação web responsiva onde o usuário pode pesquisar receitas e drinks, iniciar uma receita ou drink, favoritar, 
 > compartilhar o link com os amigos. O projeto consome uma api de bebidas e comidas chamada Free Meal Api.
